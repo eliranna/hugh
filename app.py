@@ -6,11 +6,11 @@ from flask import Flask, request, jsonify, send_file, render_template
 
 
 # Add your OpenAI API key
-OPENAI_API_KEY = ""
+OPENAI_API_KEY = "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"
 openai.api_key = OPENAI_API_KEY
 
 # Add your ElevenLabs API key
-ELEVENLABS_API_KEY = ""
+ELEVENLABS_API_KEY = "98bd8ab81c9b21734a915cec313dc6a8"
 ELEVENLABS_VOICE_STABILITY = 0.30
 ELEVENLABS_VOICE_SIMILARITY = 0.75
 
@@ -58,8 +58,8 @@ def generate_reply(conversation: list) -> str:
 
     """
     response = openai.ChatCompletion.create(
-      model="gpt-3.5-turbo",
-      messages=[
+        model="gpt-3.5-turbo",
+        messages=[
             {"role": "system", "content": "You are a helpful assistant."},
         ] + conversation
     )
@@ -79,7 +79,8 @@ def generate_audio(text: str, output_path: str = "") -> str:
     """
     voices = ELEVENLABS_ALL_VOICES
     try:
-        voice_id = next(filter(lambda v: v["name"] == ELEVENLABS_VOICE_NAME, voices))["voice_id"]
+        voice_id = next(filter(lambda v: v["name"] == ELEVENLABS_VOICE_NAME, voices))[
+            "voice_id"]
     except StopIteration:
         voice_id = voices[0]["voice_id"]
     url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
